@@ -52,11 +52,11 @@
 					break;
 				case 'add':
 					$this->handleAddTask();
-					break;
+					break;*/
 				case 'edit':
 					$this->handleEditTask();
 					break;
-				case 'update':
+			/*	case 'update':
 					$this->handleUpdateTask();
 					break;*/
 				default:
@@ -68,7 +68,7 @@
 					print $this->views->loginFormView($this->data, $this->message);
 					break;
 				case 'applicationform':
-					//print $this->views->taskFormView($this->model->getUser(), $this->data, $this->message);
+					print $this->views->ApplicationFormView($this->model->getUser(), $this->data, $this->message);
 					break;
 				default: // 'Adminlist'
 					//list($orderBy, $orderDirection) = $this->model->getOrdering();
@@ -148,20 +148,20 @@
 				$this->data = $_POST;
 			}
 		}
-		
+		*/
 		private function handleEditTask() {
 			if (!$this->verifyLogin()) return;
 			
-			list($task, $error) = $this->model->getTask($_POST['id']);
+			list($app, $error) = $this->model->getapp($_POST['id']);
 			if ($error) {
 				$this->message = $error;
-				$this->view = 'tasklist';
+				$this->view = 'Adminlist';
 				return;
 			}
-			$this->data = $task;
-			$this->view = 'taskform';
+			$this->data = $app;
+			$this->view = 'applicationform';
 		}
-		
+		/*
 		private function handleUpdateTask() {
 			if (!$this->verifyLogin()) return;
 			

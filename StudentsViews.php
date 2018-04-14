@@ -26,9 +26,12 @@
 			}
 	
 			$body .= "<table>\n";
-			$body .= "<tr><th>delete</th><th>edit</th><th>completed</th>";
+			$body .= "<tr><th>delete</th><th>edit</th><th>View</th>";
 		
-			$columns = array(array('name' => 'UserID', 'label' => 'UserID'), 
+			$columns = array(array('name' => 'id', 'label' => 'Application ID'),
+			array('name' => 'First_Name', 'label' => 'First Name'),
+							array('name' => 'Last_Name', 'label' => 'Last Name'),
+							array('name' => 'StudentID', 'label' => 'StudentID'), 
 							 array('name' => 'application_status', 'label' => 'Application Status'), 
 							 array('name' => 'ProgramID', 'label' => 'ProgramID'));
 		
@@ -48,16 +51,18 @@
 			}
 	
 			foreach ($apps as $app) {
-				$id = $app['UserID'];
+				$id = $app['id'];
 				$application_status = $app['application_status'];
 				$ProgramID = $app['ProgramID'];
-
+				$First_Name= $app['First_Name'];
+				$Last_Name = $app['Last_Name'];
+				$StudentID = $app['StudentID'];
 			
 				$body .= "<tr>";
-				//$body .= "<td><form action='index.php' method='post'><input type='hidden' name='action' value='delete' /><input type='hidden' name='id' value='$id' /><input type='submit' value='Delete'></form></td>";
-				//$body .= "<td><form action='index.php' method='post'><input type='hidden' name='action' value='edit' /><input type='hidden' name='id' value='$id' /><input type='submit' value='Edit'></form></td>";
-				//$body .= "<td><form action='index.php' method='post'><input type='hidden' name='action' value='$completedAction' /><input type='hidden' name='id' value='$id' /><input type='submit' value='$completedLabel'></form></td>";
-				$body .= "<td>$id</td><td>$application_status</td><td>$ProgramID</td>";
+				$body .= "<td><form action='index.php' method='post'><input type='hidden' name='action' value='delete' /><input type='hidden' name='id' value='$id' /><input type='submit' value='Delete'></form></td>";
+				$body .= "<td><form action='index.php' method='post'><input type='hidden' name='action' value='edit' /><input type='hidden' name='id' value='$id' /><input type='submit' value='Edit'></form></td>";
+				$body .= "<td><form action='index.php' method='post'><input type='hidden' name='action' value='view' /><input type='hidden' name='id' value='$id' /><input type='submit' value='View'></form></td>";
+				$body .= "<td>$id</td><td>$First_Name</td><td>$Last_Name</td><td>$StudentID</td><td>$application_status</td><td>$ProgramID</td>";
 				$body .= "</tr>\n";
 			}
 			$body .= "</table>\n";

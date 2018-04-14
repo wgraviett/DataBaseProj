@@ -73,7 +73,8 @@ private $user;
 			return array ($apps, $this->error);
 		}
 		
-		$sql="SELECT UserID, application_status, ProgramID FROM Applications";
+		$sql="SELECT Applications.id,Applications.StudentID, users.First_Name, users.Last_Name, Applications.application_status, Applications.ProgramID
+FROM Applications INNER JOIN users ON users.studentID = Applications.studentID";
 		if ($result = $this->mysqli->query($sql)){
 			if($result->num_rows >0){
 				while($row = $result -> fetch_assoc()){
@@ -86,6 +87,14 @@ private $user;
 			$this->error = $mysqli->error;
 		}
 		return array($apps,$this->error);
+	}
+	
+	public function getapp(){
+		// used to fetch individual application for CRUD
+		$this->error ='';
+		$apps = array();
+		
+		
 	}
 
 	
