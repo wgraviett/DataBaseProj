@@ -70,7 +70,24 @@
 			return $this->page($body);
 		}
 		
-
+		public function ApplicationFormView($user, $data = null, $message = ''){
+			$FirstName='';
+			$LastName='';
+			$StudentID='';
+			$Program='';
+			$Answer_1='';
+			
+			$Program = array('MSN_AGNP' => '', 'MSN_FNP' => '', 'MSN_PNP-ACPNP' => '', 'MSN_PMHNP' => '');
+			if ($data){
+				$FirstName = $data['First_Name'];
+				$LastName = $data['Last_Name'];
+				$StudentID= $data['studentid'];
+				$Program = $data['ProgramID'];
+				//Stopped here. Finish up creating edit view to repopulate form. 
+				//Can be adapted to a view button also. 
+			}
+			
+		}
 		public function loginFormView($data = null, $message = '') {
 			$loginID = '';
 			if ($data) {
