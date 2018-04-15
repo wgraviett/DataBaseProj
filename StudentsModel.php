@@ -11,8 +11,13 @@ private $user;
 
 	public function __construct(){
 		$this->initDatabaseConnection();
+		$this->restoreUser();
 		}
-
+	public function __destruct(){
+					if ($this->mysqli) {
+				$this->mysqli->close();
+			}
+	}
 	private function initDatabaseConnection(){
 		require('db_credentials.php');
 		$this->mysqli = new mysqli($servername, $username, $password, $dbname);
@@ -89,11 +94,41 @@ FROM Applications INNER JOIN users ON users.studentID = Applications.studentID";
 		return array($apps,$this->error);
 	}
 	
-	public function getapp(){
+	public function getapp($id){
 		// used to fetch individual application for CRUD
 		$this->error ='';
-		$apps = array();
+		$app=null;
+		if (!$this->user){
+			$this->error ="User not logged in. Please log in again.";
+			return $this->error;
+			
+		}
 		
+		if (!$this->mysqli){
+			$this->error = "No Connection to Database.";
+			return array($app,$this->error);
+		}
+		if (! $id) {
+			$this->error = "No id specified for app to retrieve.";
+			return array($app, $this->error);
+			}	
+			
+		$idEscaped = $this->mysqli->real_escape_string($id);
+		$userIDEscaped = $this->mysqli->real_escape_string($this->user->userID);		
+			
+			$sql = "SELECT Applications.id, Applications.application_question_1,Applications.StudentID, users.First_Name, users.Last_Name, Applications.application_status, Applications.ProgramID
+FROM Applications INNER JOIN users ON users.studentID = Applications.studentID where Applications.id = '$idEscaped' ";
+				
+				if ($result = $this->mysqli->query($sql)) {
+				if ($result->num_rows > 0) {
+					$app = $result->fetch_assoc();
+				}
+				$result->close();
+			} else {
+				$this->error = $this->mysqli->error;
+			}
+			
+			return array($app, $this->error);	
 		
 	}
 

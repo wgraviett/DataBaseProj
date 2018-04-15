@@ -77,15 +77,65 @@
 			$Program='';
 			$Answer_1='';
 			
-			$Program = array('MSN_AGNP' => '', 'MSN_FNP' => '', 'MSN_PNP-ACPNP' => '', 'MSN_PMHNP' => '');
+			$Program_Selected = array('Uncategorized' => '','MSN_AGNP' => '', 'MSN_FNP' => '', 'MSN_PNP-ACPNP' => '', 'MSN_PMHNP' => '');
 			if ($data){
+				$Program=$data['ProgramID'] ? $data['ProgramID'] : 'uncategorized';
 				$FirstName = $data['First_Name'];
 				$LastName = $data['Last_Name'];
 				$StudentID= $data['studentid'];
-				$Program = $data['ProgramID'];
-				//Stopped here. Finish up creating edit view to repopulate form. 
-				//Can be adapted to a view button also. 
+				$Program_Selected[$Program] = 'selected'; //check this 
+				$Answer_1 = $data['application_question_1'];
 			}
+			else {
+				$Program_Selected['uncategorized']='selected';
+			}
+			
+			$body = "<h1>Application for {$FirstName} {$LastName}</h1>\n";
+			if ($message) {
+				$body .= "<p class='message'>$message</p>\n";
+			}
+			
+			$body .= "<form action = 'index.php' method ='post'>";
+			
+			if($data[id]){
+				$body .= "<input type ='hidden' name='action' value ='update' />";
+				$body .= "<input type='hidden' name='id' value='{$data['id']}' />";
+			} else {
+				$body .= "<input type='hidden' name='action' value='add' />";
+			}
+			
+			$body .= <<<EOT2
+			
+			<p>Please fill out the form below<br />
+<p>Student ID</>
+<input type = "number" name="StudentID" value="" placeholder ="########" maxlength ="8" size="80"></p>
+ <p> Full Legal Name<br />
+<label for=LastName>Last Name</label>
+  <input type="text" name="LastName" value="" placeholder="Last Name" maxlength="255" size="20"></p>
+<label for=FirstName>First Name</label>
+  <input type="text" name="FirstName" value="" placeholder="First Name" maxlength="255" size="20"></p>
+
+<label for=program>Select Program</label>
+  <select name="Program">
+  	  <option value="0">Uncategorized</option>
+	  <option value="1">MSN - Adult Gerontology NP</option>
+	  <option value="2">MSN - Family Nurse Practitioner</option>
+	  <option value="3">MSN - Pediatric Nurse Practitioner</option>
+	  <option value="4" selected>MSN - Psychiatric Mental Health Nurse Practitioner</option>
+  </select>
+</p>
+
+  <label for=Answer_1>What was your favorite undergraduate nursing course?  </label>
+  </br>
+  <textarea name="Answer_1" rows="6" cols="80" placeholder=""></textarea></p>
+  <input type="submit" value="Submit">
+</form>
+EOT2;
+return $this->page($body);
+			
+			
+			
+			
 			
 		}
 		public function loginFormView($data = null, $message = '') {
@@ -131,7 +181,7 @@ EOT;
 </head>
 <body>
 $body
-<p>&copy; 2017 Dale Musser. All rights reserved.</p>
+<p>&copy; 2018. All rights reserved.</p>
 </body>
 </html>
 EOT;

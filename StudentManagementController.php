@@ -35,7 +35,7 @@
 			//...orderBy can be changed without being logged in
 		//	$this->processOrderBy();
 			
-			//$this->processLogout();
+			$this->processLogout();
 
 			switch($this->action) {
 				case 'login':
@@ -150,12 +150,12 @@
 		}
 		*/
 		private function handleEditTask() {
-			if (!$this->verifyLogin()) return;
+			//if (!$this->verifyLogin()) return;
 			
 			list($app, $error) = $this->model->getapp($_POST['id']);
 			if ($error) {
 				$this->message = $error;
-				$this->view = 'Adminlist';
+				$this->view = 'applicationform';
 				return;
 			}
 			$this->data = $app;
