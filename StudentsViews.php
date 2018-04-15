@@ -76,9 +76,11 @@
 			$StudentID='';
 			$Program='';
 			$Answer_1='';
-			
+			echo "in here";
 			$Program_Selected = array('Uncategorized' => '','MSN_AGNP' => '', 'MSN_FNP' => '', 'MSN_PNP-ACPNP' => '', 'MSN_PMHNP' => '');
 			if ($data){
+				echo "true";
+				echo $user;
 				$Program=$data['ProgramID'] ? $data['ProgramID'] : 'uncategorized';
 				$FirstName = $data['First_Name'];
 				$LastName = $data['Last_Name'];
@@ -108,12 +110,12 @@
 			
 			<p>Please fill out the form below<br />
 <p>Student ID</>
-<input type = "number" name="StudentID" value="" placeholder ="########" maxlength ="8" size="80"></p>
+<input type = "number" name="StudentID" value="$StudentID" placeholder ="########" maxlength ="8" size="80"></p>
  <p> Full Legal Name<br />
 <label for=LastName>Last Name</label>
-  <input type="text" name="LastName" value="" placeholder="Last Name" maxlength="255" size="20"></p>
+  <input type="text" name="LastName" value="$LastName" placeholder="Last Name" maxlength="255" size="20"></p>
 <label for=FirstName>First Name</label>
-  <input type="text" name="FirstName" value="" placeholder="First Name" maxlength="255" size="20"></p>
+  <input type="text" name="FirstName" value="$FirstName" placeholder="First Name" maxlength="255" size="20"></p>
 
 <label for=program>Select Program</label>
   <select name="Program">
@@ -127,7 +129,7 @@
 
   <label for=Answer_1>What was your favorite undergraduate nursing course?  </label>
   </br>
-  <textarea name="Answer_1" rows="6" cols="80" placeholder=""></textarea></p>
+  <textarea name="Answer_1" rows="6" cols="80" placeholder="">$Answer_1</textarea></p>
   <input type="submit" value="Submit">
 </form>
 EOT2;

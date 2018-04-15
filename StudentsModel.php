@@ -3,7 +3,7 @@ require ('User.php'); //Connects to user portfolio
 
 class StudentsModel {
 
-private $error = ' ';
+private $error = '';
 private $mysqli;
 private $orderby = 'Name';
 private $orderdirection ='asc';
@@ -28,7 +28,8 @@ private $user;
 		
 	}
 	private function restoreUser(){
-	if ($loginID =$_SESSION['loginid']) {
+	if ($loginID = $_SESSION['loginid']) {
+		echo "In retstore user";
 		$this->user = new User();
 		if (!$this->user->load($loginID, $this->mysqli)){
 			$this->user = null;
@@ -48,6 +49,7 @@ private $user;
 			if ($user->load($loginID, $this->mysqli) && password_verify($password, $user->hashedPassword)) {
 				$this->user = $user;
 				$_SESSION['loginid'] = $loginID;
+				echo $_SESSION['loginid'];
 				return array(true, "");
 			} else {
 				$this->user = null;

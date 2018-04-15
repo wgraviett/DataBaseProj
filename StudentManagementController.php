@@ -150,12 +150,16 @@
 		}
 		*/
 		private function handleEditTask() {
-			//if (!$this->verifyLogin()) return;
+			/*if (!$this->verifyLogin()) {
+			echo "help";
+			return;
+			}*/
 			
 			list($app, $error) = $this->model->getapp($_POST['id']);
 			if ($error) {
+				echo "error";
 				$this->message = $error;
-				$this->view = 'applicationform';
+				$this->view = 'adminlist';
 				return;
 			}
 			$this->data = $app;
